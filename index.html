@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線性回歸 CRISP-DM 離線演示</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="tag">Offline Interactive Demo</span>
+            <h1>線性回歸 CRISP-DM 演示</h1>
+            <p class="subtitle">使用純 Javascript 實現的機器學習互動儀表板</p>
+        </header>
+
+        <div class="dashboard">
+            <!-- Sidebar / Controls -->
+            <aside class="card">
+                <h2 class="section-title">🛠️ 控制面板</h2>
+                
+                <div class="controls-group">
+                    <label>樣本數量 (n) <span id="n-val" class="value-display">500</span></label>
+                    <input type="range" id="n-slider" min="100" max="1000" value="500">
+                </div>
+
+                <div class="controls-group">
+                    <label>雜訊強度 <span id="noise-val" class="value-display">100</span></label>
+                    <input type="range" id="noise-slider" min="0" max="1000" value="100">
+                </div>
+
+                <div class="controls-group">
+                    <label>隨機種子</label>
+                    <input type="number" id="seed-input" class="input-field" value="42">
+                </div>
+
+                <button id="generate-btn" class="input-field" style="background: var(--primary); color: var(--bg-color); font-weight: 700; cursor: pointer; border: none;">重新生成資料</button>
+
+                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 2rem 0;">
+
+                <div class="prediction-box card" style="background: rgba(0,0,0,0.2);">
+                    <h3 class="section-title" style="font-size: 1rem;">🔮 進行預測</h3>
+                    <label>輸入 X 值</label>
+                    <input type="number" id="predict-x" class="input-field" value="0" step="0.1">
+                    <p class="result-text">預測 Y: <span id="predict-y" class="result-value">0.00</span></p>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Visualization -->
+                <div class="card">
+                    <h2 class="section-title">📊 資料視覺化</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">均方誤差 (MSE)</div>
+                            <div id="mse-val" class="metric-value">0.00</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">R² 判定係數</div>
+                            <div id="r2-val" class="metric-value">0.0000</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">學習斜率 (a)</div>
+                            <div id="learned-a" class="metric-value">0.00</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="regressionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- CRISP-DM Steps -->
+                <div class="workflow-steps">
+                    <div class="card step-card">
+                        <h3>1. 業務理解 (Business Understanding)</h3>
+                        <p>本專案的目標是使用線性回歸建立一個預測模型。在業務情境中，我們旨在理解變數間的關係以便進行數據驅動的預測。</p>
+                    </div>
+
+                    <div class="card step-card">
+                        <h3>2. 資料理解 (Data Understanding)</h3>
+                        <p>透過即時生成的模擬資料，我們可以觀察 $x$ 與 $y$ 之間的關聯。調整左側的「雜訊強度」可以模擬真實世界中數據的不確定性。</p>
+                    </div>
+
+                    <div class="card step-card">
+                        <h3>3. 資料準備 (Data Preparation)</h3>
+                        <p>在背景運算中，我們對資料進行了標準化處理，確保模型訓練的穩定性與速度。</p>
+                    </div>
+
+                    <div class="card step-card">
+                        <h3>4 & 5. 建模與評估 (Modeling & Evaluation)</h3>
+                        <p>系統自動計算最佳擬合線。上方顯示的 MSE 和 R² 指標讓我們能量化模型的表現。R² 越接近 1，表示模型對資料的解釋能力越強。</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
