@@ -1,6 +1,7 @@
 # 線性回歸 CRISP-DM 演示專案
 
 這是一個使用 Python 和 Streamlit 建立的互動式教學應用程式，旨在演示如何按照 **CRISP-DM** (跨行業資料探勘標準流程) 實作線性回歸 (Linear Regression) 模型。
+live demo: https://wilson052755.github.io/DIC7-ML/
 
 ## 專案功能
 
